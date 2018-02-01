@@ -41,14 +41,14 @@ export { create }
 /** An object describing the script to run. */
 export interface ExecuteScriptDetails {
   /** Code to inject, as a text string. */
-  code?: stirng
+  code?: string
   /** Path to a file containing the code to inject. Only absolute URLs are supported. */
   file?: string
 }
 
 /** Injects JavaScript code into a page. */
-declare function executeScript (details: ExecuteScriptDetails): Promise<any[]>
-declare function executeScript (tabId: number | null, details: ExecuteScriptDetails): Promise<any[]>
+declare function executeScript<T = any> (details: ExecuteScriptDetails): Promise<T[]>
+declare function executeScript<T = any> (tabId: number | null, details: ExecuteScriptDetails): Promise<T[]>
 export { executeScript }
 
 /** Closes one or more tabs. */
