@@ -94,7 +94,7 @@ export interface QueryInfo {
 declare function query (queryInfo: QueryInfo): Promise<Tab[]>
 export { query }
 
-export interface Event<T extends () => void> {
+export interface Event<T extends Function> {
   addListener (callback: T): void
   hasListener (callback: T): boolean
   removeListener (callback: T): void
