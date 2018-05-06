@@ -17,7 +17,12 @@ function runSafariShim (tabId, name, ...args) {
       tab.addEventListener('message', function listener (ev) {
         if (ev.name !== returnId) return
 
-        resolve(ev.message.returnValue)
+        if (ev.message.error) {
+          reject(Object.assign(new Error(), { stack: undefined }, ev.message.error))
+        } else {
+          resolve(ev.message.returnValue)
+        }
+
         tab.removeEventListener('message', listener)
       })
 
