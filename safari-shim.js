@@ -10,16 +10,6 @@ function handleMessage (ev) {
       safari.self.tab.dispatchMessage(data.returnId, { returnValue })
       return
     }
-
-    if (details.file) {
-      fetch(safari.extension.baseURI + details.file.slice(1))
-        .then((res) => res.text())
-        .then((src) => {
-          const returnValue = eval(src)
-          safari.self.tab.dispatchMessage(data.returnId, { returnValue })
-        })
-      return
-    }
   }
 }
 

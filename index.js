@@ -1,4 +1,4 @@
-/* globals browser chrome safari */
+/* globals browser chrome safari fetch */
 
 const hasBrowserGlobal = (typeof browser === 'object')
 const hasSafariGlobal = (typeof safari === 'object')
@@ -105,6 +105,14 @@ exports.executeScript = function (tabId, details) {
 
   // Safari
   if (hasSafariGlobal) {
+    if (details.file) {
+      return fetch(safari.extension.baseURI + details.file.slice(1))
+        .then((response) => response.text())
+        .then((code) => Object.assign({}, details, { code, file: undefined }))
+        .then((details) => runSafariShim(tabId, 'executeScript', details))
+        .then((value) => [value])
+    }
+
     return runSafariShim(tabId, 'executeScript', details).then((value) => [value])
   }
 
